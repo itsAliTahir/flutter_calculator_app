@@ -2,6 +2,8 @@
 
 import 'package:calculator_app/models/themedata.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../models/dataprovider.dart';
 import 'button.dart';
 
 class NumPad extends StatefulWidget {
@@ -14,6 +16,7 @@ class NumPad extends StatefulWidget {
 class _NumPadState extends State<NumPad> {
   @override
   Widget build(BuildContext context) {
+    var digitalCalculator = Provider.of<DigitalCalculator>(context);
     Widget buttonsRow(
         Widget ButtonA, Widget ButtonB, Widget ButtonC, Widget ButtonD) {
       return Row(
@@ -26,34 +29,58 @@ class _NumPadState extends State<NumPad> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         buttonsRow(
-          Button("AC", primaryColor, themeColor),
-          Button("<X|", primaryColor, themeColor),
-          Button("%", primaryColor, themeColor),
-          Button("÷", primaryColor, themeColor),
+          Button("AC", primaryColor, themeColor, () {
+            digitalCalculator.ac();
+          }),
+          Button("<X|", primaryColor, themeColor, () {
+            digitalCalculator.delete();
+          }),
+          Button("%", primaryColor, themeColor, () {}),
+          Button("÷", primaryColor, themeColor, () {}),
         ),
         buttonsRow(
-          Button("7", numericColor, themeColor),
-          Button("8", numericColor, themeColor),
-          Button("9", numericColor, themeColor),
-          Button("x", primaryColor, themeColor),
+          Button("7", numericColor, themeColor, () {
+            digitalCalculator.typeInput("7");
+          }),
+          Button("8", numericColor, themeColor, () {
+            digitalCalculator.typeInput("8");
+          }),
+          Button("9", numericColor, themeColor, () {
+            digitalCalculator.typeInput("9");
+          }),
+          Button("x", primaryColor, themeColor, () {}),
         ),
         buttonsRow(
-          Button("4", numericColor, themeColor),
-          Button("5", numericColor, themeColor),
-          Button("6", numericColor, themeColor),
-          Button("-", primaryColor, themeColor),
+          Button("4", numericColor, themeColor, () {
+            digitalCalculator.typeInput("4");
+          }),
+          Button("5", numericColor, themeColor, () {
+            digitalCalculator.typeInput("5");
+          }),
+          Button("6", numericColor, themeColor, () {
+            digitalCalculator.typeInput("6");
+          }),
+          Button("-", primaryColor, themeColor, () {}),
         ),
         buttonsRow(
-          Button("1", numericColor, themeColor),
-          Button("2", numericColor, themeColor),
-          Button("3", numericColor, themeColor),
-          Button("+", primaryColor, themeColor),
+          Button("1", numericColor, themeColor, () {
+            digitalCalculator.typeInput("1");
+          }),
+          Button("2", numericColor, themeColor, () {
+            digitalCalculator.typeInput("2");
+          }),
+          Button("3", numericColor, themeColor, () {
+            digitalCalculator.typeInput("3");
+          }),
+          Button("+", primaryColor, themeColor, () {}),
         ),
         buttonsRow(
-          Button("0", numericColor, themeColor),
-          Button(".", numericColor, themeColor),
-          Button("Q", primaryColor, themeColor),
-          Button("=", Colors.white, primaryColor),
+          Button("0", numericColor, themeColor, () {
+            digitalCalculator.typeInput("0");
+          }),
+          Button(".", numericColor, themeColor, () {}),
+          Button("Q", primaryColor, themeColor, () {}),
+          Button("=", Colors.white, primaryColor, () {}),
         ),
       ],
     );

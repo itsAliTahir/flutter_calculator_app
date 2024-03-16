@@ -1,5 +1,7 @@
+import 'package:calculator_app/models/dataprovider.dart';
 import 'package:calculator_app/models/themedata.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Screen extends StatefulWidget {
   const Screen({super.key});
@@ -11,6 +13,7 @@ class Screen extends StatefulWidget {
 class _ScreenState extends State<Screen> {
   @override
   Widget build(BuildContext context) {
+    var digitalCalculator = Provider.of<DigitalCalculator>(context);
     return Container(
       margin: EdgeInsets.all(20),
       child: Column(
@@ -20,7 +23,7 @@ class _ScreenState extends State<Screen> {
           Align(
             alignment: Alignment.centerRight,
             child: Text(
-              "5720",
+              digitalCalculator.solution.toString(),
               style: TextStyle(color: Colors.white, fontSize: 60),
             ),
           ),
@@ -30,7 +33,7 @@ class _ScreenState extends State<Screen> {
           Align(
             alignment: Alignment.centerRight,
             child: Text(
-              "5720",
+              digitalCalculator.input,
               style: TextStyle(color: numericColor, fontSize: 20),
             ),
           ),
