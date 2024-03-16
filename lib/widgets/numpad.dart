@@ -29,7 +29,7 @@ class _NumPadState extends State<NumPad> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         buttonsRow(
-          Button("AC", primaryColor, themeColor, () {
+          Button("AC", Colors.redAccent, themeColor, () {
             digitalCalculator.ac();
           }),
           Button("<X|", primaryColor, themeColor, () {

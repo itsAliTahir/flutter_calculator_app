@@ -8,7 +8,6 @@ class DigitalCalculator extends ChangeNotifier {
 
   void typeInput(String letter) {
     _input = _input + letter;
-
     notifyListeners();
   }
 
@@ -28,10 +27,10 @@ class DigitalCalculator extends ChangeNotifier {
   void calculateValue() {
     num calculateExpression(String expression) {
       expression.replaceAll(" ", "");
-      expression = expression + "E";
-      num currentValue = 0;
-      num primaryValue = 0;
-      num solutionValue = 0;
+      expression = "${expression}E";
+      double currentValue = 0;
+      double primaryValue = 0;
+      double solutionValue = 0;
       String operation = "";
       for (int i = 0; i < expression.length; i++) {
         switch (expression[i]) {
@@ -65,10 +64,12 @@ class DigitalCalculator extends ChangeNotifier {
           case "9":
             currentValue = currentValue * 10 + 9;
             break;
+          case ".":
+            currentValue = currentValue * 10 + 9;
+            break;
           default:
-            if (operation == "%") {
-              currentValue = currentValue / 100;
-            } else if (operation == "+") {
+            if (operation == "%") {}
+            if (operation == "+") {
               solutionValue = primaryValue + currentValue;
               currentValue = solutionValue;
             } else if (operation == "-") {
@@ -80,6 +81,8 @@ class DigitalCalculator extends ChangeNotifier {
             } else if (operation == "÷") {
               solutionValue = primaryValue / currentValue;
               currentValue = solutionValue;
+            } else {
+              solutionValue = currentValue;
             }
             primaryValue = currentValue;
             currentValue = 0;
