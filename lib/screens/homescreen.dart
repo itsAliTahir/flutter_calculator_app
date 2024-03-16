@@ -1,3 +1,4 @@
+import 'package:calculator_app/models/themedata.dart';
 import 'package:calculator_app/widgets/numpad.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 36, 52, 65),
+      backgroundColor: themeColor,
       body: Column(
         children: [
           Expanded(

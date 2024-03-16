@@ -1,9 +1,17 @@
 import 'package:calculator_app/models/themedata.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
 
-class NumPad extends StatelessWidget {
+import 'button.dart';
+
+class NumPad extends StatefulWidget {
   const NumPad({super.key});
 
+  @override
+  State<NumPad> createState() => _NumPadState();
+}
+
+class _NumPadState extends State<NumPad> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -11,69 +19,6 @@ class NumPad extends StatelessWidget {
 
     print(screenWidth);
     print(screenHeight);
-    Widget button(String text, Color textColor, Color backgroundColor) {
-      return Container(
-        width: screenHeight / 2 < screenWidth
-            ? (screenHeight / 2) * 0.2 - 5
-            : screenWidth * 0.2 - 5,
-        height: screenHeight / 2 < screenWidth
-            ? (screenHeight / 2) * 0.2 - 5
-            : screenWidth * 0.2 - 5,
-        decoration: BoxDecoration(
-            color: backgroundColor,
-            borderRadius: BorderRadius.circular(9),
-            boxShadow: const [
-              BoxShadow(
-                  color: Color.fromARGB(54, 255, 255, 255),
-                  offset: Offset(
-                    0,
-                    -1.5,
-                  ),
-                  blurRadius: 1),
-              BoxShadow(
-                  color: Color.fromARGB(184, 0, 0, 0),
-                  offset: Offset(
-                    0,
-                    2,
-                  ),
-                  blurRadius: 3),
-              BoxShadow(
-                  color: Color.fromARGB(255, 36, 52, 65),
-                  offset: Offset(
-                    -1,
-                    0,
-                  ),
-                  blurRadius: 5),
-              BoxShadow(
-                  color: Color.fromARGB(255, 36, 52, 65),
-                  offset: Offset(
-                    1,
-                    0,
-                  ),
-                  blurRadius: 5),
-            ]),
-        child: Center(
-            child: text == "<X|"
-                ? Icon(
-                    Icons.backspace_outlined,
-                    color: textColor,
-                    size: 20,
-                  )
-                : text == "Q"
-                    ? Icon(
-                        Icons.history,
-                        color: textColor,
-                        size: 20,
-                      )
-                    : Text(
-                        text,
-                        style: TextStyle(
-                            color: textColor,
-                            fontSize: text == "AC" ? 18 : 20,
-                            fontWeight: FontWeight.w400),
-                      )),
-      );
-    }
 
     Widget buttonsRow(
         Widget ButtonA, Widget ButtonB, Widget ButtonC, Widget ButtonD) {
@@ -87,34 +32,34 @@ class NumPad extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         buttonsRow(
-          button("AC", primaryColor, themeColor),
-          button("<X|", primaryColor, themeColor),
-          button("%", primaryColor, themeColor),
-          button("÷", primaryColor, themeColor),
+          Button("AC", primaryColor, themeColor),
+          Button("<X|", primaryColor, themeColor),
+          Button("%", primaryColor, themeColor),
+          Button("÷", primaryColor, themeColor),
         ),
         buttonsRow(
-          button("7", numericColor, themeColor),
-          button("8", numericColor, themeColor),
-          button("9", numericColor, themeColor),
-          button("x", primaryColor, themeColor),
+          Button("7", numericColor, themeColor),
+          Button("8", numericColor, themeColor),
+          Button("9", numericColor, themeColor),
+          Button("x", primaryColor, themeColor),
         ),
         buttonsRow(
-          button("4", numericColor, themeColor),
-          button("5", numericColor, themeColor),
-          button("6", numericColor, themeColor),
-          button("-", primaryColor, themeColor),
+          Button("4", numericColor, themeColor),
+          Button("5", numericColor, themeColor),
+          Button("6", numericColor, themeColor),
+          Button("-", primaryColor, themeColor),
         ),
         buttonsRow(
-          button("1", numericColor, themeColor),
-          button("2", numericColor, themeColor),
-          button("3", numericColor, themeColor),
-          button("+", primaryColor, themeColor),
+          Button("1", numericColor, themeColor),
+          Button("2", numericColor, themeColor),
+          Button("3", numericColor, themeColor),
+          Button("+", primaryColor, themeColor),
         ),
         buttonsRow(
-          button("0", numericColor, themeColor),
-          button(".", numericColor, themeColor),
-          button("Q", primaryColor, themeColor),
-          button("=", Colors.white, primaryColor),
+          Button("0", numericColor, themeColor),
+          Button(".", numericColor, themeColor),
+          Button("Q", primaryColor, themeColor),
+          Button("=", Colors.white, primaryColor),
         ),
       ],
     );
