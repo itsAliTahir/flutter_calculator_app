@@ -1,7 +1,7 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:calculator_app/models/themedata.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bounceable/flutter_bounceable.dart';
-
 import 'button.dart';
 
 class NumPad extends StatefulWidget {
@@ -14,12 +14,6 @@ class NumPad extends StatefulWidget {
 class _NumPadState extends State<NumPad> {
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-
-    print(screenWidth);
-    print(screenHeight);
-
     Widget buttonsRow(
         Widget ButtonA, Widget ButtonB, Widget ButtonC, Widget ButtonD) {
       return Row(

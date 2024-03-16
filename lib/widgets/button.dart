@@ -3,12 +3,12 @@ import 'package:flutter_bounceable/flutter_bounceable.dart';
 
 import '../models/themedata.dart';
 
+// ignore: must_be_immutable
 class Button extends StatefulWidget {
   String text;
   Color textColor;
   Color backgroundColor;
-  Button(String this.text, Color this.textColor, Color this.backgroundColor,
-      {super.key});
+  Button(this.text, this.textColor, this.backgroundColor, {super.key});
 
   @override
   State<Button> createState() => _ButtonState();
@@ -21,9 +21,6 @@ class _ButtonState extends State<Button> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-
-    print(screenWidth);
-    print(screenHeight);
     return Bounceable(
       onTap: () {},
       onTapDown: (p0) {

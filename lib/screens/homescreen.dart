@@ -1,5 +1,6 @@
 import 'package:calculator_app/models/themedata.dart';
 import 'package:calculator_app/widgets/numpad.dart';
+import 'package:calculator_app/widgets/screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -9,20 +10,15 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: themeColor,
-      body: Column(
+      body: const Column(
         children: [
           Expanded(
             flex: 3,
-            child: Container(
-                // color: Colors.amber,
-                ),
+            child: Screen(),
           ),
           Expanded(
             flex: 5,
-            child: Container(
-              // color: Colors.blue,
-              child: NumPad(),
-            ),
+            child: NumPad(),
           )
         ],
       ),
