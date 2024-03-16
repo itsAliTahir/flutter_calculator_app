@@ -35,8 +35,12 @@ class _NumPadState extends State<NumPad> {
           Button("<X|", primaryColor, themeColor, () {
             digitalCalculator.delete();
           }),
-          Button("%", primaryColor, themeColor, () {}),
-          Button("÷", primaryColor, themeColor, () {}),
+          Button("%", primaryColor, themeColor, () {
+            digitalCalculator.typeInput("%");
+          }),
+          Button("÷", primaryColor, themeColor, () {
+            digitalCalculator.typeInput("÷");
+          }),
         ),
         buttonsRow(
           Button("7", numericColor, themeColor, () {
@@ -48,7 +52,9 @@ class _NumPadState extends State<NumPad> {
           Button("9", numericColor, themeColor, () {
             digitalCalculator.typeInput("9");
           }),
-          Button("x", primaryColor, themeColor, () {}),
+          Button("×", primaryColor, themeColor, () {
+            digitalCalculator.typeInput("×");
+          }),
         ),
         buttonsRow(
           Button("4", numericColor, themeColor, () {
@@ -60,7 +66,9 @@ class _NumPadState extends State<NumPad> {
           Button("6", numericColor, themeColor, () {
             digitalCalculator.typeInput("6");
           }),
-          Button("-", primaryColor, themeColor, () {}),
+          Button("-", primaryColor, themeColor, () {
+            digitalCalculator.typeInput("-");
+          }),
         ),
         buttonsRow(
           Button("1", numericColor, themeColor, () {
@@ -72,15 +80,19 @@ class _NumPadState extends State<NumPad> {
           Button("3", numericColor, themeColor, () {
             digitalCalculator.typeInput("3");
           }),
-          Button("+", primaryColor, themeColor, () {}),
+          Button("+", primaryColor, themeColor, () {
+            digitalCalculator.typeInput("+");
+          }),
         ),
         buttonsRow(
+          Button(".", numericColor, themeColor, () {}),
           Button("0", numericColor, themeColor, () {
             digitalCalculator.typeInput("0");
           }),
-          Button(".", numericColor, themeColor, () {}),
           Button("Q", primaryColor, themeColor, () {}),
-          Button("=", Colors.white, primaryColor, () {}),
+          Button("=", Colors.white, primaryColor, () {
+            digitalCalculator.calculateValue();
+          }),
         ),
       ],
     );
