@@ -1,8 +1,9 @@
 import 'dart:math';
-
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:provider/provider.dart';
+import '../models/dataprovider.dart';
 import '../models/themedata.dart';
 
 // ignore: must_be_immutable
@@ -30,6 +31,7 @@ class _ButtonState extends State<Button> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    var digitalCalculator = Provider.of<DigitalCalculator>(context);
     return DelayedDisplay(
       delay: Duration(milliseconds: generateRandomNumber(300, 1200)),
       slidingBeginOffset: const Offset(0, 0),
@@ -38,24 +40,29 @@ class _ButtonState extends State<Button> {
           widget.onTap();
         },
         onTapDown: (p0) {
+          digitalCalculator.toggleLight(true);
           setState(() {
             pressedButton = widget.text;
           });
         },
         onTapUp: (p0) {
           setState(() {
+            digitalCalculator.toggleLight(false);
             pressedButton = " ";
           });
         },
         onTapCancel: () {
+          digitalCalculator.toggleLight(false);
           setState(() {
             pressedButton = " ";
           });
         },
         child: Container(
-          width: screenHeight / 2 < screenWidth
-              ? (screenHeight / 2) * 0.2 - 5
-              : screenWidth * 0.2 - 5,
+          width: widget.text == "="
+              ? (2 * (screenWidth * 0.2 - 5)) + (screenWidth * 0.05)
+              : screenHeight / 2 < screenWidth
+                  ? (screenHeight / 2) * 0.2 - 5
+                  : screenWidth * 0.2 - 5,
           height: screenHeight / 2 < screenWidth
               ? (screenHeight / 2) * 0.2 - 5
               : screenWidth * 0.2 - 5,
@@ -111,7 +118,11 @@ class _ButtonState extends State<Button> {
                           widget.text,
                           style: TextStyle(
                               color: widget.textColor,
-                              fontSize: widget.text == "AC" ? 18 : 20,
+                              fontSize: widget.text == "AC"
+                                  ? 18
+                                  : widget.textColor == primaryColor
+                                      ? 24
+                                      : 20,
                               fontWeight: FontWeight.w400),
                         )),
         ),

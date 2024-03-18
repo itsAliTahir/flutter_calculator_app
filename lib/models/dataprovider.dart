@@ -3,8 +3,15 @@ import 'package:flutter/material.dart';
 class DigitalCalculator extends ChangeNotifier {
   num _solution = 0;
   String _input = "";
+  bool _lightON = false;
   get solution => _solution;
   get input => _input;
+  get lightON => _lightON;
+
+  void toggleLight(bool turnON) {
+    _lightON = turnON;
+    notifyListeners();
+  }
 
   void typeInput(String letter) {
     _input = _input + letter;
@@ -28,9 +35,9 @@ class DigitalCalculator extends ChangeNotifier {
     num calculateExpression(String expression) {
       expression.replaceAll(" ", "");
       expression = "${expression}E";
-      double currentValue = 0;
-      double primaryValue = 0;
-      double solutionValue = 0;
+      num currentValue = 0;
+      num primaryValue = 0;
+      num solutionValue = 0;
       String operation = "";
       for (int i = 0; i < expression.length; i++) {
         switch (expression[i]) {

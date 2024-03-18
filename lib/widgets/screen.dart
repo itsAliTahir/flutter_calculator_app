@@ -24,7 +24,7 @@ class _ScreenState extends State<Screen> {
             alignment: Alignment.centerRight,
             child: Text(
               digitalCalculator.solution.toString(),
-              style: TextStyle(color: Colors.white, fontSize: 60),
+              style: TextStyle(color: primaryColor, fontSize: 60),
             ),
           ),
           SizedBox(
