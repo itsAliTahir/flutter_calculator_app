@@ -130,7 +130,9 @@ class _NumPadState extends State<NumPad> {
             }),
           ),
           buttonsRow2(
-            Button(".", numericColor, themeColor, () {}),
+            Button(".", numericColor, themeColor, () {
+              digitalCalculator.typeInput(".");
+            }),
             Button("0", numericColor, themeColor, () {
               digitalCalculator.typeInput("0");
             }),

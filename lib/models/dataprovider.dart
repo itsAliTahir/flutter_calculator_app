@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class DigitalCalculator extends ChangeNotifier {
@@ -38,7 +40,9 @@ class DigitalCalculator extends ChangeNotifier {
       num currentValue = 0;
       num primaryValue = 0;
       num solutionValue = 0;
+      num beforeDecimal = 0;
       String operation = "";
+      bool isDecimal = false;
       for (int i = 0; i < expression.length; i++) {
         switch (expression[i]) {
           case "0":
@@ -71,12 +75,19 @@ class DigitalCalculator extends ChangeNotifier {
           case "9":
             currentValue = currentValue * 10 + 9;
             break;
-          case ".":
-            currentValue = currentValue * 10 + 9;
-            break;
           default:
-            if (operation == "%") {}
-            if (operation == "+") {
+            if (isDecimal == true) {
+              print(beforeDecimal);
+              print("--");
+              print(primaryValue);
+              currentValue = beforeDecimal +
+                  (currentValue / (pow(10, countDigits(currentValue))));
+              isDecimal = false;
+            }
+            if (expression[i] == ".") {
+              beforeDecimal = currentValue;
+              isDecimal = true;
+            } else if (operation == "+") {
               solutionValue = primaryValue + currentValue;
               currentValue = solutionValue;
             } else if (operation == "-") {
@@ -100,7 +111,17 @@ class DigitalCalculator extends ChangeNotifier {
       return solutionValue;
     }
 
-    _solution = calculateExpression(_input);
+    String formattedSolution = calculateExpression(_input).toStringAsFixed(4);
+    _solution = num.parse(formattedSolution);
     notifyListeners();
+  }
+
+  num countDigits(num number) {
+    num count = 0;
+    while (number != 0) {
+      number ~/= 10;
+      count++;
+    }
+    return count;
   }
 }
