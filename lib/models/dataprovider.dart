@@ -1,14 +1,16 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 class DigitalCalculator extends ChangeNotifier {
   num _solution = 0;
   String _input = "";
   bool _lightON = false;
+  bool _isError = false;
   get solution => _solution;
   get input => _input;
   get lightON => _lightON;
+  get isError => _isError;
 
   void toggleLight(bool turnON) {
     _lightON = turnON;
@@ -33,95 +35,31 @@ class DigitalCalculator extends ChangeNotifier {
     notifyListeners();
   }
 
-  void calculateValue() {
-    num calculateExpression(String expression) {
-      expression.replaceAll(" ", "");
-      expression = "${expression}E";
-      num currentValue = 0;
-      num primaryValue = 0;
-      num solutionValue = 0;
-      num beforeDecimal = 0;
-      String operation = "";
-      bool isDecimal = false;
-      for (int i = 0; i < expression.length; i++) {
-        switch (expression[i]) {
-          case "0":
-            currentValue = currentValue * 10;
-            break;
-          case "1":
-            currentValue = currentValue * 10 + 1;
-            break;
-          case "2":
-            currentValue = currentValue * 10 + 2;
-            break;
-          case "3":
-            currentValue = currentValue * 10 + 3;
-            break;
-          case "4":
-            currentValue = currentValue * 10 + 4;
-            break;
-          case "5":
-            currentValue = currentValue * 10 + 5;
-            break;
-          case "6":
-            currentValue = currentValue * 10 + 6;
-            break;
-          case "7":
-            currentValue = currentValue * 10 + 7;
-            break;
-          case "8":
-            currentValue = currentValue * 10 + 8;
-            break;
-          case "9":
-            currentValue = currentValue * 10 + 9;
-            break;
-          default:
-            if (isDecimal == true) {
-              print(beforeDecimal);
-              print("--");
-              print(primaryValue);
-              currentValue = beforeDecimal +
-                  (currentValue / (pow(10, countDigits(currentValue))));
-              isDecimal = false;
-            }
-            if (expression[i] == ".") {
-              beforeDecimal = currentValue;
-              isDecimal = true;
-            } else if (operation == "+") {
-              solutionValue = primaryValue + currentValue;
-              currentValue = solutionValue;
-            } else if (operation == "-") {
-              solutionValue = primaryValue - currentValue;
-              currentValue = solutionValue;
-            } else if (operation == "×") {
-              solutionValue = primaryValue * currentValue;
-              currentValue = solutionValue;
-            } else if (operation == "÷") {
-              solutionValue = primaryValue / currentValue;
-              currentValue = solutionValue;
-            } else {
-              solutionValue = currentValue;
-            }
-            primaryValue = currentValue;
-            currentValue = 0;
-            operation = expression[i];
-            break;
-        }
+  void calculate(String express) {
+    String inputUser = "";
+    for (int i = 0; i < express.length; i++) {
+      if (express[i] == '×') {
+        inputUser += '*';
+      } else if (express[i] == '÷') {
+        inputUser += '/';
+      } else {
+        inputUser += express[i];
       }
-      return solutionValue;
     }
-
-    String formattedSolution = calculateExpression(_input).toStringAsFixed(4);
-    _solution = num.parse(formattedSolution);
+    _isError = false;
+    double eval = 0;
+    try {
+      Parser parser = Parser();
+      Expression expression = parser.parse(inputUser);
+      ContextModel contextModel = ContextModel();
+      eval = expression.evaluate(EvaluationType.REAL, contextModel);
+    } catch (error) {
+      _isError = true;
+      _solution = 0;
+    }
+    if (!_isError) {
+      _solution = eval;
+    }
     notifyListeners();
-  }
-
-  num countDigits(num number) {
-    num count = 0;
-    while (number != 0) {
-      number ~/= 10;
-      count++;
-    }
-    return count;
   }
 }

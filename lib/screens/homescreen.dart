@@ -1,6 +1,5 @@
 import 'package:calculator_app/models/themedata.dart';
-import 'package:calculator_app/widgets/blinklight.dart';
-import 'package:calculator_app/widgets/numpad.dart';
+import 'package:calculator_app/widgets/buttonsgrid.dart';
 import 'package:calculator_app/widgets/screen.dart';
 import 'package:flutter/material.dart';
 
@@ -9,20 +8,18 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: scaffoldColor,
       body: SafeArea(
-        child: const Column(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            BlinkLight(),
-            Expanded(
-              flex: 3,
-              child: Screen(),
-            ),
-            Expanded(
-              flex: 5,
-              child: NumPad(),
-            )
+            Expanded(child: Screen()),
+            Container(
+                height: screenWidth + ((screenWidth * 0.25)),
+                child: ButtonsGrid()),
           ],
         ),
       ),
