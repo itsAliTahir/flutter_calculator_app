@@ -13,9 +13,9 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: scaffoldColor,
       body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            IconButton(onPressed: () {}, icon: Icon(Icons.history_outlined)),
             Expanded(child: Screen()),
             Container(
                 height: screenWidth + ((screenWidth * 0.25)),

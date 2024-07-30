@@ -1,6 +1,8 @@
-import 'dart:math';
+import 'package:calculator_app/database/history_model.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
+
+import '../database/database_helper.dart';
 
 class DigitalCalculator extends ChangeNotifier {
   num _solution = 0;
@@ -12,6 +14,7 @@ class DigitalCalculator extends ChangeNotifier {
   get lightON => _lightON;
   get isError => _isError;
 
+  List<HistoryModel> _history = [];
   void toggleLight(bool turnON) {
     _lightON = turnON;
     notifyListeners();
@@ -61,5 +64,19 @@ class DigitalCalculator extends ChangeNotifier {
       _solution = eval;
     }
     notifyListeners();
+  }
+
+  //
+
+  Future<void> initializeList() async {
+    try {
+      List<HistoryModel> tempList = await DatabaseHelper.instance.getData();
+      for (int i = 0; i < tempList.length; i++) {
+        _history.add(tempList[i]);
+      }
+    } catch (e) {
+      // ignore: avoid_print
+      print("Couldn't Fetch Data");
+    }
   }
 }
